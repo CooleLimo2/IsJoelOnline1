@@ -4,43 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joel or Robert</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
         h1 {
-            font-size: 3em;
+            font-size: 2.5em;
             color: #333;
-            margin-bottom: 20px;
+            text-align: left;
+            margin-bottom: 30px;
         }
         .button-group {
             margin-bottom: 30px;
+            text-align: left;
         }
         .button-group button {
-            padding: 15px 30px;
-            font-size: 1.5em;
-            margin: 10px;
+            padding: 15px 25px;
+            font-size: 1.2em;
+            margin-right: 15px;
             cursor: pointer;
             border: none;
             border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
             transition: background-color 0.3s;
         }
         .button-group button:hover {
-            background-color: #ddd;
+            background-color: #45a049;
         }
         #joel-options, #robert-options {
             display: none;
+            text-align: left;
         }
         .status {
-            font-size: 2em;
+            font-size: 1.8em;
             margin-top: 20px;
         }
         .online {
@@ -49,30 +58,36 @@
         .offline {
             color: red;
         }
+        p {
+            font-size: 1.2em;
+            color: #555;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Is Joel Online?</h1>
+    <div class="container">
+        <h1>Is Joel Online?</h1>
 
-    <div class="button-group">
-        <button onclick="selectUser('Joel')">Joel</button>
-        <button onclick="selectUser('Robert')">Robert</button>
-    </div>
-
-    <div id="joel-options">
-        <p>Is Joel Online?</p>
-        <button onclick="changeStatus('online')">Yes</button>
-        <button onclick="changeStatus('offline')">No</button>
-        <div class="status">
-            <span id="status-indicator" class="offline">Offline</span>
+        <div class="button-group">
+            <button onclick="selectUser('Joel')">I am Joel</button>
+            <button onclick="selectUser('Robert')">I am Robert</button>
         </div>
-    </div>
 
-    <div id="robert-options">
-        <p>Only Joel can change his status.</p>
-        <div class="status">
-            <span id="robert-status-indicator" class="offline">Offline</span>
+        <div id="joel-options">
+            <p>Change your status below:</p>
+            <button onclick="changeStatus('online')">Yes, I'm Online</button>
+            <button onclick="changeStatus('offline')">No, I'm Offline</button>
+            <div class="status">
+                <span id="status-indicator" class="offline">Offline</span>
+            </div>
+        </div>
+
+        <div id="robert-options">
+            <p>Only Joel can change the status.</p>
+            <div class="status">
+                <span id="robert-status-indicator" class="offline">Offline</span>
+            </div>
         </div>
     </div>
 
