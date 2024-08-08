@@ -8,27 +8,46 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 50px;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
         }
         h1 {
-            font-size: 2em;
+            font-size: 3em;
+            color: #333;
             margin-bottom: 20px;
         }
-        .hidden {
+        .button-group {
+            margin-bottom: 30px;
+        }
+        .button-group button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button-group button:hover {
+            background-color: #ddd;
+        }
+        #joel-options, #robert-options {
             display: none;
         }
-        .visible {
-            display: block;
-        }
-        input[type="text"] {
-            padding: 10px;
-            font-size: 1em;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 1em;
+        .status {
+            font-size: 2em;
             margin-top: 20px;
-            cursor: pointer;
+        }
+        .online {
+            color: green;
+        }
+        .offline {
+            color: red;
         }
     </style>
 </head>
@@ -36,36 +55,64 @@
 
     <h1>Is Joel Online?</h1>
 
-    <label for="name">Are you Joel or Robert?</label>
-    <input type="text" id="name" placeholder="Enter your name">
-    <button onclick="checkName()">Submit</button>
-
-    <div id="joel-options" class="hidden">
-        <input type="text" id="joel-status" readonly value="no">
-        <button onclick="changeStatus('yes')">Yes</button>
-        <button onclick="changeStatus('no')">No</button>
+    <div class="button-group">
+        <button onclick="selectUser('Joel')">Joel</button>
+        <button onclick="selectUser('Robert')">Robert</button>
     </div>
 
-    <div id="robert-options" class="hidden">
-        <input type="text" id="robert-status" readonly value="yes">
+    <div id="joel-options">
+        <p>Is Joel Online?</p>
+        <button onclick="changeStatus('online')">Yes</button>
+        <button onclick="changeStatus('offline')">No</button>
+        <div class="status">
+            <span id="status-indicator" class="offline">Offline</span>
+        </div>
+    </div>
+
+    <div id="robert-options">
+        <p>Only Joel can change his status.</p>
+        <div class="status">
+            <span id="robert-status-indicator" class="offline">Offline</span>
+        </div>
     </div>
 
     <script>
-        function checkName() {
-            const name = document.getElementById('name').value.toLowerCase();
-            if (name === 'joel') {
-                document.getElementById('joel-options').classList.remove('hidden');
-                document.getElementById('robert-options').classList.add('hidden');
-            } else if (name === 'robert') {
-                document.getElementById('robert-options').classList.remove('hidden');
-                document.getElementById('joel-options').classList.add('hidden');
-            } else {
-                alert('Please enter either "Joel" or "Robert".');
+        function selectUser(user) {
+            if (user === 'Joel') {
+                document.getElementById('joel-options').style.display = 'block';
+                document.getElementById('robert-options').style.display = 'none';
+            } else if (user === 'Robert') {
+                document.getElementById('joel-options').style.display = 'none';
+                document.getElementById('robert-options').style.display = 'block';
             }
         }
 
         function changeStatus(status) {
-            document.getElementById('joel-status').value = status;
+            const statusIndicator = document.getElementById('status-indicator');
+            const robertStatusIndicator = document.getElementById('robert-status-indicator');
+            
+            if (status === 'online') {
+                statusIndicator.textContent = 'Online';
+                statusIndicator.className = 'online';
+                robertStatusIndicator.textContent = 'Online';
+                robertStatusIndicator.className = 'online';
+            } else if (status === 'offline') {
+                statusIndicator.textContent = 'Offline';
+                statusIndicator.className = 'offline';
+                robertStatusIndicator.textContent = 'Offline';
+                robertStatusIndicator.className = 'offline';
+            }
+            
+            // Save the status to local storage
+            localStorage.setItem('joelStatus', status);
+        }
+
+        // Check saved status on page load
+        window.onload = function() {
+            const savedStatus = localStorage.getItem('joelStatus');
+            if (savedStatus) {
+                changeStatus(savedStatus);
+            }
         }
     </script>
 
