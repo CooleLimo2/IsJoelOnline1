@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joel or Robert</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .visible {
+            display: block;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Is Joel Online?</h1>
+
+    <label for="name">Are you Joel or Robert?</label>
+    <input type="text" id="name" placeholder="Enter your name">
+    <button onclick="checkName()">Submit</button>
+
+    <div id="joel-options" class="hidden">
+        <input type="text" id="joel-status" readonly value="no">
+        <button onclick="changeStatus('yes')">Yes</button>
+        <button onclick="changeStatus('no')">No</button>
+    </div>
+
+    <div id="robert-options" class="hidden">
+        <input type="text" id="robert-status" readonly value="yes">
+    </div>
+
+    <script>
+        function checkName() {
+            const name = document.getElementById('name').value.toLowerCase();
+            if (name === 'joel') {
+                document.getElementById('joel-options').classList.remove('hidden');
+                document.getElementById('robert-options').classList.add('hidden');
+            } else if (name === 'robert') {
+                document.getElementById('robert-options').classList.remove('hidden');
+                document.getElementById('joel-options').classList.add('hidden');
+            } else {
+                alert('Please enter either "Joel" or "Robert".');
+            }
+        }
+
+        function changeStatus(status) {
+            document.getElementById('joel-status').value = status;
+        }
+    </script>
+
+</body>
+</html>
